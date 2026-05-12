@@ -13,6 +13,10 @@ Per-skill detail lives in each skill's `EVOLUTION.md`:
 
 ## [Unreleased]
 
+### Changed
+
+- README 拆分为中英双文件：`README.md` 默认中文（GitHub 首页默认展示），`README.en.md` 为英文版。两份文件顶部互相链接。原 `README.md` 内的"上中下英"长篇结构不再存在。
+
 ### Added
 
 - 仓库现在是 Claude Code plugin + plugin marketplace：新增 `.claude-plugin/plugin.json`（plugin 清单）和 `.claude-plugin/marketplace.json`（self-source marketplace 清单），让用户用 `/plugin marketplace add SoulZhong/recruiting-skills` + `/plugin install recruiting-skills@recruiting-skills` 两行命令安装。
