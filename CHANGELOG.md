@@ -15,7 +15,8 @@ Per-skill detail lives in each skill's `EVOLUTION.md`:
 
 ### Added
 
-- README 增加 `## 安装 / ## Installation` 节：覆盖 Claude Code、Codex CLI、Hermes、OpenClaw、Cursor、Gemini CLI、Windows、通用 fallback、验证与升级。节首含 "**如果你是 AI agent 在读这份文件 / If you are an AI agent reading this file**" 五步自助安装指令，agent 可直接读 README 完成安装。
+- 仓库现在是 Claude Code plugin + plugin marketplace：新增 `.claude-plugin/plugin.json`（plugin 清单）和 `.claude-plugin/marketplace.json`（self-source marketplace 清单），让用户用 `/plugin marketplace add SoulZhong/recruiting-skills` + `/plugin install recruiting-skills@recruiting-skills` 两行命令安装。
+- README 安装节按 Superpowers 排版风格重写：Claude Code 走 plugin marketplace 一键安装；Codex CLI / Hermes / OpenClaw / Gemini CLI / Cursor / 其他 agent 各自独立小节，clone + 符号链接 / cp 方式。开头保留 "If you are an AI agent reading this file" 自助安装指令。
 
 ## [0.1.0] — 2026-05-12
 

@@ -27,129 +27,102 @@
 
 ## 安装
 
-> **如果你是 AI agent 在读这份文件**：
->
-> 1. 询问或推断用户当前运行平台（Claude Code / Codex / Hermes / OpenClaw / Cursor / Gemini CLI / 其他）。
-> 2. 跑 [§0 通用前置](#0-通用前置任何平台都先做)。
-> 3. 跑该平台对应小节里的命令块。
-> 4. 跑 [§ 验证](#验证)。
-> 5. 验证通过后告诉用户已就绪的四个 skill：`recruiting-skillset`、`jd-writing`、`resume-screening`、`interview-evaluation`，并提示总控入口 `recruiting-skillset`。
+各 agent 平台的安装方式不同；同时使用多个平台需要分别安装。
 
-### 0. 通用前置（任何平台都先做）
-
-```bash
-git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
-```
-
-仓库本体放在 `~/recruiting-skills`，下面各平台用符号链接（`ln -sfn`）把 4 个 skill 接到平台的 skill 目录。日后 `git pull` 自动同步，不需要重新安装。
+> **如果你是 AI agent 在读这份文件**：识别（询问或推断）用户当前运行的平台，跑下方对应小节里的命令，跑完 [§ 验证](#验证)，然后告诉用户四个 skill 已就绪：`recruiting-skillset`、`jd-writing`、`resume-screening`、`interview-evaluation`（起点是 `recruiting-skillset`）。
 
 ### Claude Code
 
-用户级（所有项目可用）：
+把本仓库注册为 plugin marketplace，然后从中安装：
 
-```bash
-mkdir -p ~/.claude/skills
-ln -sfn ~/recruiting-skills/skills/recruiting-skillset  ~/.claude/skills/recruiting-skillset
-ln -sfn ~/recruiting-skills/skills/jd-writing           ~/.claude/skills/jd-writing
-ln -sfn ~/recruiting-skills/skills/resume-screening     ~/.claude/skills/resume-screening
-ln -sfn ~/recruiting-skills/skills/interview-evaluation ~/.claude/skills/interview-evaluation
+```
+/plugin marketplace add SoulZhong/recruiting-skills
+/plugin install recruiting-skills@recruiting-skills
 ```
 
-项目级（仅当前项目）：把上面 4 行的 `~/.claude/skills/` 改成 `.claude/skills/`，并先 `mkdir -p .claude/skills`。
+安装完成后，skill 会自动加载，触发条件按各 `SKILL.md` 的 `description` 匹配。
 
 ### Codex CLI
 
+仓库暂未提交到 Codex 官方 plugin marketplace。当前用 clone + 符号链接：
+
 ```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p ~/.agents/skills
-ln -sfn ~/recruiting-skills/skills/recruiting-skillset  ~/.agents/skills/recruiting-skillset
-ln -sfn ~/recruiting-skills/skills/jd-writing           ~/.agents/skills/jd-writing
-ln -sfn ~/recruiting-skills/skills/resume-screening     ~/.agents/skills/resume-screening
-ln -sfn ~/recruiting-skills/skills/interview-evaluation ~/.agents/skills/interview-evaluation
+for s in recruiting-skillset jd-writing resume-screening interview-evaluation; do
+  ln -sfn ~/recruiting-skills/skills/$s ~/.agents/skills/$s
+done
 ```
 
 ### Hermes
 
 ```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p ~/.hermes/skills
-ln -sfn ~/recruiting-skills/skills/recruiting-skillset  ~/.hermes/skills/recruiting-skillset
-ln -sfn ~/recruiting-skills/skills/jd-writing           ~/.hermes/skills/jd-writing
-ln -sfn ~/recruiting-skills/skills/resume-screening     ~/.hermes/skills/resume-screening
-ln -sfn ~/recruiting-skills/skills/interview-evaluation ~/.hermes/skills/interview-evaluation
+for s in recruiting-skillset jd-writing resume-screening interview-evaluation; do
+  ln -sfn ~/recruiting-skills/skills/$s ~/.hermes/skills/$s
+done
 ```
 
-如果你的 Hermes 用 category 子目录（如 `~/.hermes/skills/productivity/`），把目标路径里的 `~/.hermes/skills/` 替换成 `~/.hermes/skills/recruiting/` 并先 `mkdir -p` 即可。
+Hermes 若用 category 子目录（如 `~/.hermes/skills/productivity/`），把目标路径里的 `~/.hermes/skills/` 换成 `~/.hermes/skills/recruiting/`，先 `mkdir -p` 即可。
 
 ### OpenClaw
 
-OpenClaw 兼容 Claude Code 的 skill 约定，使用 [Claude Code 小节](#claude-code) 的命令即可。
-
-### Cursor
-
-Cursor 没有原生 skill 系统，两种用法二选一：
-
-1. **@-mention 引用**：在 Cursor 对话里 `@~/recruiting-skills/skills/recruiting-skillset/SKILL.md` 把入口 skill 拉进上下文。
-2. **rules 化**：复制 4 个 `SKILL.md` 到 `.cursor/rules/`：
-   ```bash
-   mkdir -p .cursor/rules
-   cp ~/recruiting-skills/skills/recruiting-skillset/SKILL.md  .cursor/rules/recruiting-skillset.md
-   cp ~/recruiting-skills/skills/jd-writing/SKILL.md           .cursor/rules/jd-writing.md
-   cp ~/recruiting-skills/skills/resume-screening/SKILL.md     .cursor/rules/resume-screening.md
-   cp ~/recruiting-skills/skills/interview-evaluation/SKILL.md .cursor/rules/interview-evaluation.md
-   ```
+OpenClaw 兼容 Claude Code 的 plugin 约定，使用 [Claude Code](#claude-code) 的两行命令即可。
 
 ### Gemini CLI
 
-Gemini CLI 通过 `activate_skill` 工具激活 skill，会话开始时加载 skill metadata。两步：
+(等待本仓库提交 `gemini-extension.json`。当前用 clone + 配置 `skills_dir`：)
 
-1. 把 skill 路径加进项目的 `GEMINI.md` 或 Gemini CLI 配置（具体字段以你的 Gemini CLI 版本为准）：
-   ```
-   skills_dir: ~/recruiting-skills/skills
-   ```
-2. 会话中需要时调用 `activate_skill("<skill-name>")`，例如 `activate_skill("jd-writing")`。
+```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
+# 在你项目的 GEMINI.md 或 Gemini CLI 配置里加：
+#   skills_dir: ~/recruiting-skills/skills
+# 会话中需要时调用 activate_skill("<skill-name>")
+```
+
+### Cursor
+
+Cursor 没有原生 plugin 加载机制，把 `SKILL.md` 复制成 `.cursor/rules/`：
+
+```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
+mkdir -p .cursor/rules
+cp ~/recruiting-skills/skills/recruiting-skillset/SKILL.md  .cursor/rules/recruiting-skillset.md
+cp ~/recruiting-skills/skills/jd-writing/SKILL.md           .cursor/rules/jd-writing.md
+cp ~/recruiting-skills/skills/resume-screening/SKILL.md     .cursor/rules/resume-screening.md
+cp ~/recruiting-skills/skills/interview-evaluation/SKILL.md .cursor/rules/interview-evaluation.md
+```
+
+或在 Cursor 对话里 `@~/recruiting-skills/skills/recruiting-skillset/SKILL.md` 直接引用。
 
 ### 其他 agent（generic fallback）
 
-任何支持"扫描某目录、按 `SKILL.md` frontmatter 触发"的 agent：
-
-1. clone：`git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills`
-2. 把 `~/recruiting-skills/skills/` 下四个 skill 文件夹符号链接到你的 agent skill 目录。
-
-### Windows
-
-PowerShell 替代 `ln -sfn`：
-
-```powershell
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\recruiting-skillset"  -Target "$HOME\recruiting-skills\skills\recruiting-skillset"  -Force
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\jd-writing"           -Target "$HOME\recruiting-skills\skills\jd-writing"           -Force
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\resume-screening"     -Target "$HOME\recruiting-skills\skills\resume-screening"     -Force
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\interview-evaluation" -Target "$HOME\recruiting-skills\skills\interview-evaluation" -Force
+```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 ```
 
-CMD 用 `mklink /D TARGET SOURCE`（需管理员权限）；或直接 `Copy-Item -Recurse` 全量复制，缺点是 `git pull` 后要重新拷贝。
+把 `~/recruiting-skills/skills/` 下 4 个文件夹符号链接到你的 agent skill 目录。Windows 用户用 PowerShell `New-Item -ItemType SymbolicLink` 或 `mklink /D` 替代 `ln -sfn`。
 
 ### 验证
 
 ```bash
-ls -la ~/.claude/skills/recruiting-skillset/SKILL.md 2>/dev/null \
-  || ls -la ~/.agents/skills/recruiting-skillset/SKILL.md 2>/dev/null \
-  || ls -la ~/.hermes/skills/recruiting-skillset/SKILL.md 2>/dev/null
+ls -la <你的 skill 目录>/recruiting-skillset/SKILL.md
 ```
 
-应该看到 `... -> /Users/<you>/recruiting-skills/skills/recruiting-skillset/SKILL.md`。
+例如 Claude Code plugin 装完应该看到 plugin cache 里有 `recruiting-skillset/SKILL.md`；clone 方式应该看到 `... -> /Users/<you>/recruiting-skills/skills/recruiting-skillset/SKILL.md`。
 
 或在 agent 里输入：
 
 > 帮我写一份高级 AI 算法工程师的 JD
 
-如果 agent 自动加载 `jd-writing` 并按工作流回应，安装成功。
+如果 agent 自动加载 `jd-writing` 并按工作流响应，安装成功。
 
 ### 升级
 
-```bash
-cd ~/recruiting-skills && git pull
-```
-
-符号链接自动指向最新内容。复制安装（Cursor rules / Windows copy）需要重新执行对应安装命令。
+- Claude Code plugin 方式：`/plugin update recruiting-skills`
+- Clone 方式：`cd ~/recruiting-skills && git pull`，符号链接自动指向最新内容
+- Cursor rules（cp 方式）：重新执行 [Cursor](#cursor) 小节的 cp 命令
 
 ## 如何使用
 
@@ -280,115 +253,90 @@ Core beliefs:
 
 ## Installation
 
-> **If you are an AI agent reading this file**:
->
-> 1. Identify (ask the user, or infer) which platform you are running on (Claude Code / Codex / Hermes / OpenClaw / Cursor / Gemini CLI / other).
-> 2. Run [§0 Common prerequisite](#0-common-prerequisite-do-this-first).
-> 3. Run the command block in the matching subsection below.
-> 4. Run [§ Verify](#verify).
-> 5. Once verified, tell the user the four skills are ready: `recruiting-skillset`, `jd-writing`, `resume-screening`, `interview-evaluation` (start from `recruiting-skillset`).
+Installation differs by agent platform. If you use more than one, install separately for each.
 
-### 0. Common prerequisite (do this first)
-
-```bash
-git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
-```
-
-The repo lives at `~/recruiting-skills`. Each platform below symlinks the four skill folders into the platform's skill directory. `git pull` later → all installs update automatically; no re-install needed.
+> **If you are an AI agent reading this file**: identify (ask the user, or infer) which platform you are running on, run the command block in the matching subsection below, run [§ Verify](#verify), then tell the user the four skills are ready: `recruiting-skillset`, `jd-writing`, `resume-screening`, `interview-evaluation` (start from `recruiting-skillset`).
 
 ### Claude Code
 
-User-level (available across all projects):
+Register this repository as a plugin marketplace, then install:
 
-```bash
-mkdir -p ~/.claude/skills
-ln -sfn ~/recruiting-skills/skills/recruiting-skillset  ~/.claude/skills/recruiting-skillset
-ln -sfn ~/recruiting-skills/skills/jd-writing           ~/.claude/skills/jd-writing
-ln -sfn ~/recruiting-skills/skills/resume-screening     ~/.claude/skills/resume-screening
-ln -sfn ~/recruiting-skills/skills/interview-evaluation ~/.claude/skills/interview-evaluation
+```
+/plugin marketplace add SoulZhong/recruiting-skills
+/plugin install recruiting-skills@recruiting-skills
 ```
 
-Project-level (current project only): replace `~/.claude/skills/` with `.claude/skills/` in all four lines, and `mkdir -p .claude/skills` first.
+Skills are loaded automatically; trigger conditions match against each `SKILL.md`'s `description`.
 
 ### Codex CLI
 
+Not yet submitted to the Codex official plugin marketplace. Use clone + symlink:
+
 ```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p ~/.agents/skills
-ln -sfn ~/recruiting-skills/skills/recruiting-skillset  ~/.agents/skills/recruiting-skillset
-ln -sfn ~/recruiting-skills/skills/jd-writing           ~/.agents/skills/jd-writing
-ln -sfn ~/recruiting-skills/skills/resume-screening     ~/.agents/skills/resume-screening
-ln -sfn ~/recruiting-skills/skills/interview-evaluation ~/.agents/skills/interview-evaluation
+for s in recruiting-skillset jd-writing resume-screening interview-evaluation; do
+  ln -sfn ~/recruiting-skills/skills/$s ~/.agents/skills/$s
+done
 ```
 
 ### Hermes
 
 ```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p ~/.hermes/skills
-ln -sfn ~/recruiting-skills/skills/recruiting-skillset  ~/.hermes/skills/recruiting-skillset
-ln -sfn ~/recruiting-skills/skills/jd-writing           ~/.hermes/skills/jd-writing
-ln -sfn ~/recruiting-skills/skills/resume-screening     ~/.hermes/skills/resume-screening
-ln -sfn ~/recruiting-skills/skills/interview-evaluation ~/.hermes/skills/interview-evaluation
+for s in recruiting-skillset jd-writing resume-screening interview-evaluation; do
+  ln -sfn ~/recruiting-skills/skills/$s ~/.hermes/skills/$s
+done
 ```
 
 If your Hermes uses category subdirs (e.g. `~/.hermes/skills/productivity/`), replace `~/.hermes/skills/` with `~/.hermes/skills/recruiting/` in the target paths and `mkdir -p` first.
 
 ### OpenClaw
 
-OpenClaw is compatible with Claude Code's skill convention — use the [Claude Code](#claude-code) commands.
-
-### Cursor
-
-Cursor has no native skill system. Two usage modes:
-
-1. **@-mention** — in Cursor chat: `@~/recruiting-skills/skills/recruiting-skillset/SKILL.md` to pull the umbrella skill into context.
-2. **Rules** — copy the four `SKILL.md` files into `.cursor/rules/`:
-   ```bash
-   mkdir -p .cursor/rules
-   cp ~/recruiting-skills/skills/recruiting-skillset/SKILL.md  .cursor/rules/recruiting-skillset.md
-   cp ~/recruiting-skills/skills/jd-writing/SKILL.md           .cursor/rules/jd-writing.md
-   cp ~/recruiting-skills/skills/resume-screening/SKILL.md     .cursor/rules/resume-screening.md
-   cp ~/recruiting-skills/skills/interview-evaluation/SKILL.md .cursor/rules/interview-evaluation.md
-   ```
+OpenClaw is compatible with Claude Code's plugin convention — use the [Claude Code](#claude-code) two-line commands.
 
 ### Gemini CLI
 
-Gemini CLI activates skills via the `activate_skill` tool and loads skill metadata at session start. Two steps:
+(Pending a `gemini-extension.json` in this repo. For now, clone + configure `skills_dir`:)
 
-1. Add the skill directory to your project's `GEMINI.md` or Gemini CLI config (exact field name depends on your CLI version):
-   ```
-   skills_dir: ~/recruiting-skills/skills
-   ```
-2. In session, call `activate_skill("<skill-name>")` when needed, e.g. `activate_skill("jd-writing")`.
+```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
+# In your project's GEMINI.md or Gemini CLI config, add:
+#   skills_dir: ~/recruiting-skills/skills
+# In session, call activate_skill("<skill-name>") when needed.
+```
+
+### Cursor
+
+Cursor has no native plugin loading mechanism. Copy `SKILL.md` files into `.cursor/rules/`:
+
+```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
+mkdir -p .cursor/rules
+cp ~/recruiting-skills/skills/recruiting-skillset/SKILL.md  .cursor/rules/recruiting-skillset.md
+cp ~/recruiting-skills/skills/jd-writing/SKILL.md           .cursor/rules/jd-writing.md
+cp ~/recruiting-skills/skills/resume-screening/SKILL.md     .cursor/rules/resume-screening.md
+cp ~/recruiting-skills/skills/interview-evaluation/SKILL.md .cursor/rules/interview-evaluation.md
+```
+
+Or in Cursor chat, reference directly: `@~/recruiting-skills/skills/recruiting-skillset/SKILL.md`.
 
 ### Other agents (generic fallback)
 
-For any agent that supports "scan a directory, route by `SKILL.md` frontmatter":
-
-1. Clone: `git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills`
-2. Symlink the four skill folders from `~/recruiting-skills/skills/` into the agent's skill directory.
-
-### Windows
-
-PowerShell replacement for `ln -sfn`:
-
-```powershell
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\recruiting-skillset"  -Target "$HOME\recruiting-skills\skills\recruiting-skillset"  -Force
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\jd-writing"           -Target "$HOME\recruiting-skills\skills\jd-writing"           -Force
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\resume-screening"     -Target "$HOME\recruiting-skills\skills\resume-screening"     -Force
-New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\interview-evaluation" -Target "$HOME\recruiting-skills\skills\interview-evaluation" -Force
+```bash
+git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 ```
 
-CMD alternative: `mklink /D TARGET SOURCE` (admin required). Or just `Copy-Item -Recurse` the four folders — the downside is you have to re-copy after each `git pull`.
+Symlink the four skill folders from `~/recruiting-skills/skills/` into the agent's skill directory. Windows users: replace `ln -sfn` with PowerShell `New-Item -ItemType SymbolicLink` or `mklink /D`.
 
 ### Verify
 
 ```bash
-ls -la ~/.claude/skills/recruiting-skillset/SKILL.md 2>/dev/null \
-  || ls -la ~/.agents/skills/recruiting-skillset/SKILL.md 2>/dev/null \
-  || ls -la ~/.hermes/skills/recruiting-skillset/SKILL.md 2>/dev/null
+ls -la <your skill directory>/recruiting-skillset/SKILL.md
 ```
 
-Expect `... -> /Users/<you>/recruiting-skills/skills/recruiting-skillset/SKILL.md`.
+For the Claude Code plugin install, this lives under the plugin cache; for clone-based installs, you should see `... -> /Users/<you>/recruiting-skills/skills/recruiting-skillset/SKILL.md`.
 
 Or ask the agent:
 
@@ -398,11 +346,9 @@ If the agent auto-loads `jd-writing` and follows its workflow, install is succes
 
 ### Upgrade
 
-```bash
-cd ~/recruiting-skills && git pull
-```
-
-Symlinks point to the latest content automatically. Copy-based installs (Cursor rules, Windows copy mode) need to re-run the install command.
+- Claude Code plugin install: `/plugin update recruiting-skills`
+- Clone install: `cd ~/recruiting-skills && git pull` (symlinks point to latest automatically)
+- Cursor rules (cp mode): re-run the cp commands from the [Cursor](#cursor) section
 
 ## How to use
 

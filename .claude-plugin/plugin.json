@@ -1,0 +1,21 @@
+{
+  "name": "recruiting-skills",
+  "description": "End-to-end recruiting skill pack for AI agents: JD writing, resume screening, interview evaluation. One umbrella skill plus three focused skills, organized in Superpowers style.",
+  "version": "0.1.0",
+  "author": {
+    "name": "SoulZhong",
+    "email": "soullleo@hotmail.com"
+  },
+  "homepage": "https://github.com/SoulZhong/recruiting-skills",
+  "repository": "https://github.com/SoulZhong/recruiting-skills",
+  "license": "MIT",
+  "keywords": [
+    "recruiting",
+    "hiring",
+    "hr",
+    "jd-writing",
+    "resume-screening",
+    "interview-evaluation",
+    "agent-skills"
+  ]
+}
