@@ -13,6 +13,10 @@ Per-skill detail lives in each skill's `EVOLUTION.md`:
 
 ## [Unreleased]
 
+### Added
+
+- README 增加 `## 安装 / ## Installation` 节：覆盖 Claude Code、Codex CLI、Hermes、OpenClaw、Cursor、Gemini CLI、Windows、通用 fallback、验证与升级。节首含 "**如果你是 AI agent 在读这份文件 / If you are an AI agent reading this file**" 五步自助安装指令，agent 可直接读 README 完成安装。
+
 ## [0.1.0] — 2026-05-12
 
 ### Added
