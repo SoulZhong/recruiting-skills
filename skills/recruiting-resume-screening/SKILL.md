@@ -1,5 +1,5 @@
 ---
-name: resume-screening
+name: recruiting-resume-screening
 description: Use when reviewing one or more Chinese-language resumes against a JD, batch-ranking candidates, identifying red flags and follow-up interview questions, or re-screening a prior candidate batch. Triggers include 发简历给我筛、根据 JD 评估候选人、批量简历筛选、给候选人排序、找出简历疑点、生成面试必问题、根据面试反馈复核排序、重新评估之前那批简历 等。
 ---
 

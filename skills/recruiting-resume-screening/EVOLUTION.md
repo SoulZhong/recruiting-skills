@@ -1,4 +1,4 @@
-# Evolution Log — resume-screening
+# Evolution Log — recruiting-resume-screening
 
 ## 2026-05-12 — PDF 脚本补 stderr 警告
 

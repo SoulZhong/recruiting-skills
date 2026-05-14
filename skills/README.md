@@ -15,7 +15,7 @@
 | Skill | When to use |
 | --- | --- |
 | [jd-writing](jd-writing/SKILL.md) | 写 JD、改 JD、把内部岗位说明改成对外招聘 JD。 |
-| [resume-screening](resume-screening/SKILL.md) | 根据 JD 评估单份 / 批量简历，给排序、疑点、面试问题。 |
+| [recruiting-resume-screening](recruiting-resume-screening/SKILL.md) | 根据 JD 评估单份 / 批量简历，给排序、疑点、面试问题。 |
 | [interview-evaluation](interview-evaluation/SKILL.md) | 根据面试录音转写或面试官记录写结构化面评。 |
 
 ## Skill 之间的关系
@@ -25,7 +25,7 @@
         │
         ├─► jd-writing          ──► 候选人外发 JD + 内部验证标准
         │
-        ├─► resume-screening    ──► 个人评估卡 + 排序 + 疑点 + 面试问题
+        ├─► recruiting-resume-screening    ──► 个人评估卡 + 排序 + 疑点 + 面试问题
         │
         └─► interview-evaluation ─► 推进建议 + 优势 / 不足 / 风险 + 下一步
 
@@ -39,7 +39,7 @@
 - `SKILL.md`：主入口，包含 `name` + `description`（"Use when ..." 触发条件）+ 工作流 + 自检。
 - `EVOLUTION.md`：演化日志。每次结构性变更或反馈回流追加一条。
 - `*.md`：按主题拆分的引用资源（rubric、catalog、templates、playbooks 等）。
-- `scripts/`：可选。`resume-screening` 下放了多后端 PDF 提取脚本。
+- `scripts/`：可选。`recruiting-resume-screening` 下放了多后端 PDF 提取脚本。
 
 ## 跨技能引用
 
@@ -47,7 +47,7 @@
 
 - `[[recruiting-skillset]]` → [recruiting-skillset/SKILL.md](recruiting-skillset/SKILL.md)
 - `[[jd-writing]]` → [jd-writing/SKILL.md](jd-writing/SKILL.md)
-- `[[resume-screening]]` → [resume-screening/SKILL.md](resume-screening/SKILL.md)
+- `[[recruiting-resume-screening]]` → [recruiting-resume-screening/SKILL.md](recruiting-resume-screening/SKILL.md)
 - `[[interview-evaluation]]` → [interview-evaluation/SKILL.md](interview-evaluation/SKILL.md)
 
 ## 触发风格

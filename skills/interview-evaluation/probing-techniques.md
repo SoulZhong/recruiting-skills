@@ -95,7 +95,7 @@
 
 ## 准备阶段：用筛选输出生成追问
 
-从 [[resume-screening]] 的个人评估卡里：
+从 [[recruiting-resume-screening]] 的个人评估卡里：
 
 - 🔴 疑点 → 必问追问。
 - 风险提示 → 设计 1 个针对性问题。

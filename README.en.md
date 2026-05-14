@@ -13,7 +13,7 @@
 | --- | --- |
 | [`recruiting-skillset`](skills/recruiting-skillset/SKILL.md) | Umbrella. Chains JD / screening / evaluation into one workflow built around a single "role standard packet". |
 | [`jd-writing`](skills/jd-writing/SKILL.md) | Turn internal role notes into a candidate-readable, industry-titled JD that screening and interview can verify against. |
-| [`resume-screening`](skills/resume-screening/SKILL.md) | Multi-dimensional resume evaluation against a JD: red flags, ranking, interview questions. Ships a multi-backend PDF extraction script. |
+| [`recruiting-resume-screening`](skills/recruiting-resume-screening/SKILL.md) | Multi-dimensional resume evaluation against a JD: red flags, ranking, interview questions. Ships a multi-backend PDF extraction script. |
 | [`interview-evaluation`](skills/interview-evaluation/SKILL.md) | Structured interview write-ups from transcripts or interviewer notes, separating capability / experience / risk. |
 
 Core beliefs:
@@ -27,7 +27,7 @@ Core beliefs:
 
 Installation differs by agent platform. If you use more than one, install separately for each.
 
-> **If you are an AI agent reading this file**: identify (ask the user, or infer) which platform you are running on, run the command block in the matching subsection below, run [§ Verify](#verify), then tell the user the four skills are ready: `recruiting-skillset`, `jd-writing`, `resume-screening`, `interview-evaluation` (start from `recruiting-skillset`).
+> **If you are an AI agent reading this file**: identify (ask the user, or infer) which platform you are running on, run the command block in the matching subsection below, run [§ Verify](#verify), then tell the user the four skills are ready: `recruiting-skillset`, `jd-writing`, `recruiting-resume-screening`, `interview-evaluation` (start from `recruiting-skillset`).
 
 ### Claude Code
 
@@ -47,7 +47,7 @@ Not yet submitted to the Codex official plugin marketplace. Use clone + symlink:
 ```bash
 git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p ~/.agents/skills
-for s in recruiting-skillset jd-writing resume-screening interview-evaluation; do
+for s in recruiting-skillset jd-writing recruiting-resume-screening interview-evaluation; do
   ln -sfn ~/recruiting-skills/skills/$s ~/.agents/skills/$s
 done
 ```
@@ -57,7 +57,7 @@ done
 ```bash
 git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p ~/.hermes/skills
-for s in recruiting-skillset jd-writing resume-screening interview-evaluation; do
+for s in recruiting-skillset jd-writing recruiting-resume-screening interview-evaluation; do
   ln -sfn ~/recruiting-skills/skills/$s ~/.hermes/skills/$s
 done
 ```
@@ -88,7 +88,7 @@ git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p .cursor/rules
 cp ~/recruiting-skills/skills/recruiting-skillset/SKILL.md  .cursor/rules/recruiting-skillset.md
 cp ~/recruiting-skills/skills/jd-writing/SKILL.md           .cursor/rules/jd-writing.md
-cp ~/recruiting-skills/skills/resume-screening/SKILL.md     .cursor/rules/resume-screening.md
+cp ~/recruiting-skills/skills/recruiting-resume-screening/SKILL.md     .cursor/rules/recruiting-resume-screening.md
 cp ~/recruiting-skills/skills/interview-evaluation/SKILL.md .cursor/rules/interview-evaluation.md
 ```
 
@@ -132,7 +132,7 @@ Every skill is plain Markdown — readable as documentation:
 skills/
 ├── recruiting-skillset/   # umbrella + role-standard-packet template
 ├── jd-writing/            # title conversion / verifiable requirements / role playbooks / positioning templates
-├── resume-screening/      # 5-dim rubric / red flags / templates / batch discipline / PDF extraction script
+├── recruiting-resume-screening/      # 5-dim rubric / red flags / templates / batch discipline / PDF extraction script
 └── interview-evaluation/  # 16 dimensions / attribution errors / probing techniques / template / full example
 ```
 
@@ -150,11 +150,11 @@ Cross-skill references use `[[skill-name]]` syntax. See [skills/README.md](skill
 
 ## PDF extraction script
 
-`skills/resume-screening/scripts/resume_pdf_extract.py` is a self-contained, open-source multi-backend PDF extractor:
+`skills/recruiting-resume-screening/scripts/resume_pdf_extract.py` is a self-contained, open-source multi-backend PDF extractor:
 
 ```bash
 pip install --user pymupdf pdfplumber pdfminer.six   # any subset works
-python3 skills/resume-screening/scripts/resume_pdf_extract.py /path/to/resume_dir --output-dir /tmp/out
+python3 skills/recruiting-resume-screening/scripts/resume_pdf_extract.py /path/to/resume_dir --output-dir /tmp/out
 ```
 
 Per file: cleans output, scores it, writes the best backend's text. Produces a `summary.json` and a Markdown triage table.

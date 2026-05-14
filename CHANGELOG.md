@@ -8,13 +8,14 @@ Per-skill detail lives in each skill's `EVOLUTION.md`:
 
 - [`skills/recruiting-skillset/EVOLUTION.md`](skills/recruiting-skillset/EVOLUTION.md)
 - [`skills/jd-writing/EVOLUTION.md`](skills/jd-writing/EVOLUTION.md)
-- [`skills/resume-screening/EVOLUTION.md`](skills/resume-screening/EVOLUTION.md)
+- [`skills/recruiting-resume-screening/EVOLUTION.md`](skills/recruiting-resume-screening/EVOLUTION.md)
 - [`skills/interview-evaluation/EVOLUTION.md`](skills/interview-evaluation/EVOLUTION.md)
 
 ## [Unreleased]
 
 ### Changed
 
+- 把 skill slug `resume-screening` 重命名为 `recruiting-resume-screening`，对应文件夹和所有 `[[resume-screening]]` 交叉引用同步更新。原因：ClawHub 全局 slug 唯一，`resume-screening` 已被另一作者注册；为保持本仓库 4 个 skill 在 ClawHub 上同属一个命名族（`recruiting-*`），统一加 `recruiting-` 前缀。Claude Code plugin 用户从 git 拉取后旧路径不再可用。
 - README 拆分为中英双文件：`README.md` 默认中文（GitHub 首页默认展示），`README.en.md` 为英文版。两份文件顶部互相链接。原 `README.md` 内的"上中下英"长篇结构不再存在。
 
 ### Added

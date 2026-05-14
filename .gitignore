@@ -5,3 +5,6 @@ __pycache__/
 .venv/
 .vscode/
 .idea/
+
+# ClawHub publish artifact, regenerated from skills/ via PUBLISHING.md
+dist/

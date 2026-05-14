@@ -13,7 +13,7 @@
 | --- | --- |
 | [`recruiting-skillset`](skills/recruiting-skillset/SKILL.md) | 总控：把 JD / 筛选 / 面评串成"一套岗位标准，三次使用"的工作流。 |
 | [`jd-writing`](skills/jd-writing/SKILL.md) | 把内部岗位说明改成行业通用、候选人能理解、可被筛选和面试验证的 JD。 |
-| [`resume-screening`](skills/resume-screening/SKILL.md) | 根据 JD 多维度评估候选人，识别疑点，给排序与面试问题。附多后端 PDF 抽取脚本。 |
+| [`recruiting-resume-screening`](skills/recruiting-resume-screening/SKILL.md) | 根据 JD 多维度评估候选人，识别疑点，给排序与面试问题。附多后端 PDF 抽取脚本。 |
 | [`interview-evaluation`](skills/interview-evaluation/SKILL.md) | 根据面试录音转写或面试官记录写结构化面评，区分能力 / 经验 / 风险。 |
 
 核心信念：
@@ -27,7 +27,7 @@
 
 各 agent 平台的安装方式不同；同时使用多个平台需要分别安装。
 
-> **如果你是 AI agent 在读这份文件**：识别（询问或推断）用户当前运行的平台，跑下方对应小节里的命令，跑完 [§ 验证](#验证)，然后告诉用户四个 skill 已就绪：`recruiting-skillset`、`jd-writing`、`resume-screening`、`interview-evaluation`（起点是 `recruiting-skillset`）。
+> **如果你是 AI agent 在读这份文件**：识别（询问或推断）用户当前运行的平台，跑下方对应小节里的命令，跑完 [§ 验证](#验证)，然后告诉用户四个 skill 已就绪：`recruiting-skillset`、`jd-writing`、`recruiting-resume-screening`、`interview-evaluation`（起点是 `recruiting-skillset`）。
 
 ### Claude Code
 
@@ -47,7 +47,7 @@
 ```bash
 git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p ~/.agents/skills
-for s in recruiting-skillset jd-writing resume-screening interview-evaluation; do
+for s in recruiting-skillset jd-writing recruiting-resume-screening interview-evaluation; do
   ln -sfn ~/recruiting-skills/skills/$s ~/.agents/skills/$s
 done
 ```
@@ -57,7 +57,7 @@ done
 ```bash
 git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p ~/.hermes/skills
-for s in recruiting-skillset jd-writing resume-screening interview-evaluation; do
+for s in recruiting-skillset jd-writing recruiting-resume-screening interview-evaluation; do
   ln -sfn ~/recruiting-skills/skills/$s ~/.hermes/skills/$s
 done
 ```
@@ -88,7 +88,7 @@ git clone https://github.com/SoulZhong/recruiting-skills.git ~/recruiting-skills
 mkdir -p .cursor/rules
 cp ~/recruiting-skills/skills/recruiting-skillset/SKILL.md  .cursor/rules/recruiting-skillset.md
 cp ~/recruiting-skills/skills/jd-writing/SKILL.md           .cursor/rules/jd-writing.md
-cp ~/recruiting-skills/skills/resume-screening/SKILL.md     .cursor/rules/resume-screening.md
+cp ~/recruiting-skills/skills/recruiting-resume-screening/SKILL.md     .cursor/rules/recruiting-resume-screening.md
 cp ~/recruiting-skills/skills/interview-evaluation/SKILL.md .cursor/rules/interview-evaluation.md
 ```
 
@@ -141,7 +141,7 @@ skills/
 │   ├── role-type-playbooks.md         # 六类岗位写作侧重点
 │   ├── positioning-templates.md       # 业务定位模板
 │   └── EVOLUTION.md
-├── resume-screening/
+├── recruiting-resume-screening/
 │   ├── SKILL.md
 │   ├── five-dimension-rubric.md       # 五维评估完整定义
 │   ├── red-flags-catalog.md           # 简历疑点清单
@@ -175,17 +175,17 @@ skills/
 
 ## 配套 PDF 抽取脚本
 
-`skills/resume-screening/scripts/resume_pdf_extract.py` 是一个**开源、无外部依赖（除 PDF 后端外）**的多后端 PDF 抽取脚本：
+`skills/recruiting-resume-screening/scripts/resume_pdf_extract.py` 是一个**开源、无外部依赖（除 PDF 后端外）**的多后端 PDF 抽取脚本：
 
 ```bash
 # 安装任意一个或多个后端
 python3 -m pip install --user pymupdf pdfplumber pdfminer.six
 
 # 单份 PDF
-python3 skills/resume-screening/scripts/resume_pdf_extract.py /path/to/resume.pdf --output-dir /tmp/out
+python3 skills/recruiting-resume-screening/scripts/resume_pdf_extract.py /path/to/resume.pdf --output-dir /tmp/out
 
 # 批量
-python3 skills/resume-screening/scripts/resume_pdf_extract.py /path/to/resume_dir --output-dir /tmp/out
+python3 skills/recruiting-resume-screening/scripts/resume_pdf_extract.py /path/to/resume_dir --output-dir /tmp/out
 ```
 
 输出：

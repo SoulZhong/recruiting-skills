@@ -8,7 +8,7 @@ license: MIT
 
 ## Overview
 
-招聘全流程的总控 Skill。把 [[jd-writing]]、[[resume-screening]]、[[interview-evaluation]] 串成一条用同一套标准的流水线。
+招聘全流程的总控 Skill。把 [[jd-writing]]、[[recruiting-resume-screening]]、[[interview-evaluation]] 串成一条用同一套标准的流水线。
 
 **Core principle: 一套岗位标准，三次使用。**
 
@@ -34,8 +34,8 @@ license: MIT
 | 用户意图 | 加载 | 产出 |
 | --- | --- | --- |
 | 写 JD / 改 JD / 岗位说明外发 | **REQUIRED:** [[jd-writing]] | 候选人外发 JD + 内部验证标准 |
-| 评估简历 / 批量筛选 / 横向排序 | **REQUIRED:** [[resume-screening]] | 个人评估卡 + 排序表 + 疑点 + 面试问题 |
-| 准备面试 / 根据筛选生成追问 | [[resume-screening]] + [[interview-evaluation]] | 面试卡、统一问题、专项追问 |
+| 评估简历 / 批量筛选 / 横向排序 | **REQUIRED:** [[recruiting-resume-screening]] | 个人评估卡 + 排序表 + 疑点 + 面试问题 |
+| 准备面试 / 根据筛选生成追问 | [[recruiting-resume-screening]] + [[interview-evaluation]] | 面试卡、统一问题、专项追问 |
 | 写面评 / 根据转写评估 | **REQUIRED:** [[interview-evaluation]] | 推进建议、优势、不足、风险、下一步 |
 | 复盘招聘质量 / 调整标准 | 本 Skill + 相关专项 | 标准修正、Skill 更新、进化日志 |
 
@@ -53,7 +53,7 @@ license: MIT
    [jd-writing] ───► 岗位标准包 ◄────┐
         │                            │
         ▼                            │
-   [resume-screening] ──── 短名单 ───┤
+   [recruiting-resume-screening] ── 短名单 ───┤
         │                            │
         ▼                            │
    [interview-evaluation] ─── 面评 ──┘
@@ -87,7 +87,7 @@ license: MIT
 
 ### 2. Screen Resumes Against the Same Standard
 
-加载 [[resume-screening]]。
+加载 [[recruiting-resume-screening]]。
 
 1. 确认岗位标准包存在；没有则从 JD 中抽取。
 2. 逐份提取简历文本，不凭记忆、不复用旧结论。
@@ -97,7 +97,7 @@ license: MIT
 
 ### 3. Prepare Interviews
 
-同时使用 [[resume-screening]] + [[interview-evaluation]]：
+同时使用 [[recruiting-resume-screening]] + [[interview-evaluation]]：
 
 - 统一必问问题（横向比较）。
 - 每人专项追问（来自简历疑点和岗位关键能力）。
@@ -122,7 +122,7 @@ license: MIT
 | 反馈 | 应更新 |
 | --- | --- |
 | 投递候选人整体不对 | [[jd-writing]] 岗位名、职责、反向筛选 |
-| 筛选放过明显不合适候选人 | [[resume-screening]] 硬信号 / 风险信号 / 一票否决 |
+| 筛选放过明显不合适候选人 | [[recruiting-resume-screening]] 硬信号 / 风险信号 / 一票否决 |
 | 面试发现 JD 要求不可验证 | [[jd-writing]] 任职要求表达 |
 | 面评归因不准 | [[interview-evaluation]] 归因规则和追问技巧 |
 | 入职表现与评价偏差大 | 岗位标准包、筛选权重、面试验证标准 |
@@ -222,4 +222,4 @@ license: MIT
 
 - [role-standard-packet.md](role-standard-packet.md) — 完整岗位标准包模板。
 - [EVOLUTION.md](EVOLUTION.md) — 本 Skill 的演化历史。
-- [[jd-writing]] · [[resume-screening]] · [[interview-evaluation]] — 三个专项 Skill。
+- [[jd-writing]] · [[recruiting-resume-screening]] · [[interview-evaluation]] — 三个专项 Skill。

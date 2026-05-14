@@ -96,7 +96,7 @@ description: Use when writing a Chinese-language interview evaluation from inter
 
 - **必须先读完整转写 / 记录**，再判断，不只根据简历印象。
 - **批量面试转写姓名误识别风险**：同一候选人在转写中可能有多个称呼（姓名、昵称、口误）。若用户提到"昨天那批名单 / 按名字匹配"，必须先用历史会话和本地简历文件核对正式姓名，再在内部材料里加"姓名匹配说明"表。**正式报告中不要出现姓名匹配过程**。
-- **PDF 简历提取**：见 [[resume-screening]] 的 `pdf-extraction.md`。
+- **PDF 简历提取**：见 [[recruiting-resume-screening]] 的 `pdf-extraction.md`。
 
 ## Output Discipline
 
@@ -150,4 +150,4 @@ description: Use when writing a Chinese-language interview evaluation from inter
 - [evaluation-template.md](evaluation-template.md) — 空白面评模板。
 - [example-evaluation.md](example-evaluation.md) — 完整面评示例（含写作要点说明）。
 - [EVOLUTION.md](EVOLUTION.md) — 演化日志。
-- 总控流程：[[recruiting-skillset]]；简历筛选：[[resume-screening]]。
+- 总控流程：[[recruiting-skillset]]；简历筛选：[[recruiting-resume-screening]]。

@@ -1,6 +1,6 @@
 # 把用人标准写成可验证要求
 
-任职要求不能停在"熟悉 X、了解 Y"。要写成能被 [[resume-screening]] 和 [[interview-evaluation]] 验证的要求。
+任职要求不能停在"熟悉 X、了解 Y"。要写成能被 [[recruiting-resume-screening]] 和 [[interview-evaluation]] 验证的要求。
 
 ## 能力 → JD 表达 → 面试验证
 

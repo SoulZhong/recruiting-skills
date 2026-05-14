@@ -9,7 +9,7 @@
 - **新的触发条件 / 反模式案例**：在对应 SKILL.md 的 _When to Use_ 或 _Anti-Patterns_ 加条目。
 - **新的归因校准 / 追问技巧**：放到 `skills/interview-evaluation/attribution-errors.md` 或 `probing-techniques.md`。
 - **新的行业 / 岗位 playbook**：放到 `skills/jd-writing/role-type-playbooks.md` 或 `positioning-templates.md`。
-- **PDF 抽取脚本 bug 修复、新后端、更好的清洗规则**：在 `skills/resume-screening/scripts/`。
+- **PDF 抽取脚本 bug 修复、新后端、更好的清洗规则**：在 `skills/recruiting-resume-screening/scripts/`。
 - **示例（脱敏）**：完整脱敏的 JD / 评估卡 / 面评示例，能让首次读者一眼看懂产出形态。
 - **跨语言 / 跨平台适配**：英文版 skill、Codex / Gemini CLI 适配说明等。
 

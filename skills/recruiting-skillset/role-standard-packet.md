@@ -73,4 +73,4 @@
 
 - 每个岗位单独维护一份岗位标准包，与 JD 同步更新。
 - 简历筛选和面试评价开始前先核对：标准包是否与最新 JD 一致？
-- 面评结束后，如标准包暴露问题（要求不可验证、信号缺失），同步修订 [[jd-writing]] / [[resume-screening]] / [[interview-evaluation]] 中相应内容。
+- 面评结束后，如标准包暴露问题（要求不可验证、信号缺失），同步修订 [[jd-writing]] / [[recruiting-resume-screening]] / [[interview-evaluation]] 中相应内容。
